@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عالم أترهيب</title>
+<style>
+/* منع النسخ بالكامل */
+body, a, div, span {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
+}
+
+/* Reset */
+* {margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif;}
+body {
+  background: #0b0c2a;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
+  direction: rtl;
+  min-height: 100vh;
+}
+
+/* خلفية نجوم */
+#stars {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* القسم العلوي */
+.header {
+  position: relative;
+  z-index: 2;
+  padding: 40px 20px;
+}
+
+/* صورة شخصية دائرية */
+.profile {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 5px solid #00f0ff;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  position: relative;
+}
+.profile.active {
+  transform: scale(1.1);
+}
+
+/* النص العلوي الجديد */
+.welcome {
+  margin-top: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #00f0ff;
+  text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+  animation: pulseText 2s infinite;
+}
+@keyframes pulseText {
+  0% { text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 15px #00f0ff; }
+  50% { text-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff, 0 0 45px #00f0ff; }
+  100% { text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 15px #00f0ff; }
+}
+
+/* القناة الرسمية */
+.main-channel {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00f0ff;
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: rgba(0,0,0,0.3);
+  box-shadow: 0 0 10px #00f0ff;
+  position: relative;
+}
+
+/* الحساب الرسمي أصغر */
+.official-account {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 16px;
+  color: #00f0ff;
+  text-decoration: none;
+  padding: 6px 15px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.3);
+  box-shadow: 0 0 8px #00f0ff;
+  transition: all 0.5s ease;
+  position: relative;
+}
+
+/* نص أسفل الحساب الرسمي */
+.anim-text {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #00f0ff;
+  animation: glowText 2s infinite alternate;
+}
+@keyframes glowText {
+  0% {text-shadow: 0 0 5px #00f0ff;}
+  50% {text-shadow: 0 0 20px #00f0ff;}
+  100% {text-shadow: 0 0 5px #00f0ff;}
+}
+
+/* أزرار السوشيال */
+.channels-social, .channels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  z-index:2;
+  position: relative;
+}
+.channel-box {
+  background: rgba(0,0,0,0.3);
+  padding: 10px 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00f0ff;
+  font-weight: bold;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.5s ease;
+}
+.channel-box img {
+  width: 35px;
+  height:35px;
+  border-radius: 50%;
+}
+/* ضوء خارجي نابض */
+.channel-box::before {
+  content:'';
+  position:absolute;
+  top:-4px; left:-4px; right:-4px; bottom:-4px;
+  border-radius: 12px;
+  z-index:-1;
+  background: linear-gradient(45deg, #00f0ff, #00ff00, #ff6600, #8a2be2, #a52a2a);
+  background-size: 600% 600%;
+  animation: glowBorder 4s linear infinite, pulseBorder 2s infinite;
+}
+@keyframes glowBorder {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+@keyframes pulseBorder {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.05);}
+  100% {transform: scale(1);}
+}
+
+.channel-box:hover {
+  transform: scale(1.05);
+  color: #fff;
+  box-shadow:0 0 15px rgba(0,255,255,0.8);
+}
+
+/* نص أسفل القنوات */
+.bottom-text {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #00f0ff;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  animation: glowText 2s infinite alternate;
+}
+.arrow-up {
+  border: solid #00f0ff;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 5px;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  margin-left:5px;
+}
+
+/* ضوء الصورة الشخصية تلقائي */
+.profile::after {
+  content:'';
+  position:absolute;
+  top:-10px; left:-10px; right:-10px; bottom:-10px;
+  border-radius: 50%;
+  z-index:-1;
+  background: linear-gradient(45deg, #00f0ff, #00ff00, #ff6600, #8a2be2, #a52a2a);
+  background-size: 600% 600%;
+  animation: glowProfile 4s linear infinite;
+  opacity:0.8;
+}
+@keyframes glowProfile {
+  0% {background-position:0% 50%; opacity:0.5;}
+  25% {background-position:50% 50%; opacity:1;}
+  50% {background-position:100% 50%; opacity:0.5;}
+  75% {background-position:50% 50%; opacity:1;}
+  100% {background-position:0% 50%; opacity:0.5;}
+}
+
+/* حقوق الطبع */
+.footer {
+  margin-top: 50px;
+  padding: 15px;
+  font-size: 14px;
+  color: #888;
+}
+
+/* Responsive */
+@media only screen and (max-width: 768px) {
+  .channels, .channels-social {flex-direction: column; gap: 10px;}
+  .channel-box img {width: 30px;}
+  .profile {width: 110px; height:110px;}
+}
+@media only screen and (max-width: 480px) {
+  .welcome {font-size:18px;}
+  .main-channel {font-size:16px; padding:6px 15px;}
+  .official-account {font-size:14px; padding:5px 12px;}
+}
+</style>
+</head>
+<body oncontextmenu="return false">
+
+<canvas id="stars"></canvas>
+
+<div class="header">
+  <img class="profile" src="https://i.ibb.co/6J4zxyKT/IMG-1042.png" alt="صورة شخصية" id="profile-pic">
+
+  <div class="welcome">اتــرهــيــب عـــلـــي ¹</div>
+
+  <a href="https://t.me/atraheebb" target="_blank" class="main-channel">قناتي الرسمية</a>
+  <a href="https://t.me/atraheb" target="_blank" class="official-account">حسابي الرسمي</a>
+  <div class="anim-text">خبير العام و هاوي التقنية أترهيب</div>
+</div>
+
+<!-- السوشيال -->
+<div class="channels-social">
+  <a href="https://youtube.com/@atraheeb?si=faRBX21_aZg4a50S" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/d0t4NBfH/IMG-1833.png"> قناتي يوتيوب
+  </a>
+  <a href="https://www.instagram.com/9jt9i?igsh=MTJzanI5YXpjcG80YQ==" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/prdXfyzP/IMG-1840.png"> انستقرامي
+  </a>
+  <a href="https://www.tiktok.com/@atraheeb?_r=1&_t=ZS-94XyOQyNyce" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/svQrZxPt/IMG-1841.png"> تيك توك
+  </a>
+</div>
+
+<!-- قنوات التليجرام -->
+<div class="channels">
+  <a href="https://t.me/atraheb3" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/jPgjPLjT/IMG-1830.png"> قناتي 1
+  </a>
+  <a href="https://t.me/atraheeb2" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/jPgjPLjT/IMG-1830.png"> قناتي 2
+  </a>
+  <a href="https://t.me/atraheeb7" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/jPgjPLjT/IMG-1830.png"> قناتي 3
+  </a>
+  <a href="https://t.me/atraheeb5" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/jPgjPLjT/IMG-1830.png"> قناتي 4
+  </a>
+  <a href="https://t.me/atraheeb1" target="_blank" class="channel-box">
+    <img src="https://i.ibb.co/jPgjPLjT/IMG-1830.png"> قناتي 5
+  </a>
+</div>
+
+<div class="bottom-text">اكتشفوا قنواتي الرائعة <i class="arrow-up"></i></div>
+<div class="footer">جميع الحقوق محفوظة لدى أترهيب</div>
+
+<script>
+// منع النسخ عبر الاختصارات
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("selectstart", e => e.preventDefault());
+
+// خلفية النجوم
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+let stars = [];
+for(let i=0;i<400;i++){
+  stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});
+}
+function drawStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = "white";
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fill();
+    s.x+=s.dx; s.y+=s.dy;
+    if(s.x<0||s.x>canvas.width)s.dx*=-1;
+    if(s.y<0||s.y>canvas.height)s.dy*=-1;
+  });
+  requestAnimationFrame(drawStars);
+}
+drawStars();
+</script>
+
+</body>
+</html>
